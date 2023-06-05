@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
-import axios from 'axios';
 import { Autocomplete, TextField, Typography } from '@mui/material';
 import { cities } from '../../data/cities';
 import { City } from './Weather.types';
+import { getWeather } from '../../api/services/weatherService';
 
 const Weather: React.FC = () => {
   const [selectedCity, setSelectedCity] = useState<City | null>(null);
@@ -32,9 +32,7 @@ const Weather: React.FC = () => {
     if (selectedCity) {
       const { lat, lng } = selectedCity;
       try {
-        const response = await axios.get(
-          `https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lng}&current_weather=true`,
-        );
+        const response = await getWeather(lat, lng);
         setWeatherData(response.data);
       } catch (error) {
         console.error('Error fetching weather data:', error);
