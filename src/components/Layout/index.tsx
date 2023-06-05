@@ -3,15 +3,16 @@ import Header from '../Header';
 import Sidebar from '../Sidebar';
 import { Box } from '@mui/material';
 import { LayoutProps } from './Layout.types';
-
+import { useTheme } from '@mui/material/styles';
 const drawerWidth = 240;
 const Layout: React.FC<LayoutProps> = ({ children }) => {
   const [mobileOpen, setMobileOpen] = React.useState(false);
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
   };
+  const theme = useTheme();
   return (
-    <div>
+    <Box sx={{ backgroundColor: theme.palette.background.default }}>
       <Box sx={{ display: 'flex' }}>
         <Header
           handleDrawerToggle={handleDrawerToggle}
@@ -33,7 +34,7 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
           {children}
         </Box>
       </Box>
-    </div>
+    </Box>
   );
 };
 

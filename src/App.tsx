@@ -1,5 +1,6 @@
 import React, { Suspense } from 'react';
 // import { useTranslation } from 'react-i18next';
+
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import { routes } from './constants/routes';
 import Layout from './components/Layout';

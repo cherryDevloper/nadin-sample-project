@@ -18,8 +18,8 @@ export default function Sidebar({
     <div>
       <List>
         {['Dashboard', 'Profile', 'Weather', 'Todos'].map((text) => (
-          <NavLink to={text.toLowerCase()}>
-            <ListItem key={text} disablePadding>
+          <NavLink to={text.toLowerCase()} key={text}>
+            <ListItem disablePadding>
               <ListItemButton>
                 <ListItemText primary={text} />
               </ListItemButton>
