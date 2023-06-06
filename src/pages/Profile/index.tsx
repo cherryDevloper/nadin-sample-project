@@ -8,21 +8,21 @@ import {
   Grid,
 } from '@mui/material';
 import { cities } from '../../data/cities';
-
 import { ProfileTypes } from './Profile.type';
 import { AlertType } from '../../components/AlertComponent/Alert.type';
 import AlertComponent from '../../components/AlertComponent';
+//theme
 const themes = ['Light', 'Dark'];
+//
 const ProfileComponent: React.FC = () => {
-  const storedName = localStorage.getItem('name');
-  const storedProfile = storedName ? JSON.parse(storedName) : {};
+  const storedData = localStorage.getItem('data');
+  const userData = storedData ? JSON.parse(storedData) : {};
   const [profile, setProfile] = useState<ProfileTypes>({
-    firstName: storedProfile.firstName || '',
-    lastName: storedProfile.lastName || '',
-    location: '' || null,
+    firstName: userData.firstName || '',
+    lastName: userData.lastName || '',
+    location: userData.location || { city: 'Tehran', lat: '', lng: '' },
     theme: 'Light',
   });
-
   const [alert, setAlert] = useState<{
     showAlert: boolean;
     alertType: AlertType;
@@ -46,7 +46,7 @@ const ProfileComponent: React.FC = () => {
   ) => {
     setProfile((prevProfile) => ({
       ...prevProfile,
-      location: value,
+      location: { city: value, lat: '', lng: '' },
     }));
   };
 
@@ -59,7 +59,7 @@ const ProfileComponent: React.FC = () => {
   };
 
   const handleSave = () => {
-    localStorage.setItem('profile', JSON.stringify(profile));
+    localStorage.setItem('data', JSON.stringify(profile));
     setAlert({
       showAlert: true,
       alertMessage: 'changes has been saved successfuly!',

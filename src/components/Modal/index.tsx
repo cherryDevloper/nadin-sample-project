@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import {
   Button,
   Dialog,
@@ -20,8 +20,18 @@ const CustomModal: React.FC<NameFormProps> = ({
   onChangeLocation,
   data,
 }) => {
+  const [formError, setFormError] = useState({
+    hasFirstName: true,
+    hasLastName: true,
+  });
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
+    if (!data.firstName.trim()) {
+      setFormError({ ...formError, hasFirstName: false });
+    }
+    if (!data.lastName.trim()) {
+      setFormError({ ...formError, hasLastName: false });
+    }
     onSubmit(e);
   };
   return (
@@ -35,6 +45,9 @@ const CustomModal: React.FC<NameFormProps> = ({
             onChange={onChangeFirstName}
             fullWidth
             margin="normal"
+            required
+            error={!formError.hasFirstName}
+            helperText={!formError.hasFirstName ? 'First name is required' : ''}
           />
           <TextField
             label="Last Name"
@@ -42,6 +55,9 @@ const CustomModal: React.FC<NameFormProps> = ({
             onChange={onChangeLastName}
             fullWidth
             margin="normal"
+            required
+            error={!formError.hasLastName}
+            helperText={!formError.hasLastName ? 'Last name  is required' : ''}
           />
           <Autocomplete
             freeSolo
@@ -59,7 +75,7 @@ const CustomModal: React.FC<NameFormProps> = ({
           />
         </DialogContent>
         <DialogActions>
-          <Button onClick={() => onClose(data)}>Cancel</Button>
+          {/* <Button onClick={() => onClose(data)}>Cancel</Button> */}
           <Button type="submit" variant="contained" color="primary">
             Submit
           </Button>

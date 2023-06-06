@@ -28,7 +28,7 @@ const Dashboard = () => {
         : 'Good Evening';
 
     setGreeting(greeting);
-    const savedName = JSON.parse(localStorage.getItem('name') ?? 'null');
+    const savedName = JSON.parse(localStorage.getItem('data') ?? 'null');
     setData(savedName ?? { firstName: '', lastName: '' });
   }, []);
 
