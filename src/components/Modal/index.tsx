@@ -1,15 +1,6 @@
 import React, { useState } from 'react';
-import {
-  Button,
-  Dialog,
-  DialogTitle,
-  DialogContent,
-  DialogActions,
-  TextField,
-  Autocomplete,
-} from '@mui/material';
+import { Button, Modal, TextField, Box } from '@mui/material';
 import { NameFormProps } from './Modal.types';
-import { cities } from '../../data/cities';
 
 const CustomModal: React.FC<NameFormProps> = ({
   open,
@@ -17,13 +8,13 @@ const CustomModal: React.FC<NameFormProps> = ({
   onSubmit,
   onChangeFirstName,
   onChangeLastName,
-  onChangeLocation,
   data,
 }) => {
   const [formError, setFormError] = useState({
     hasFirstName: true,
     hasLastName: true,
   });
+
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     if (!data.firstName.trim()) {
@@ -34,11 +25,29 @@ const CustomModal: React.FC<NameFormProps> = ({
     }
     onSubmit(e);
   };
+
+  const handleClose = () => {
+    onClose(data);
+  };
+
   return (
-    <Dialog open={open} onClose={onClose}>
-      <DialogTitle>Enter Your information</DialogTitle>
-      <form onSubmit={handleSubmit}>
-        <DialogContent>
+    <Modal open={open} onClose={handleClose}>
+      <Box
+        sx={{
+          position: 'absolute',
+          top: '50%',
+          left: '50%',
+          transform: 'translate(-50%, -50%)',
+          width: '90%',
+          maxWidth: 400,
+          bgcolor: 'background.paper',
+          border: '2px solid #000',
+          boxShadow: 24,
+          p: 4,
+        }}
+      >
+        <h2>Enter Your Information</h2>
+        <form onSubmit={handleSubmit}>
           <TextField
             label="First Name"
             value={data.firstName}
@@ -57,31 +66,17 @@ const CustomModal: React.FC<NameFormProps> = ({
             margin="normal"
             required
             error={!formError.hasLastName}
-            helperText={!formError.hasLastName ? 'Last name  is required' : ''}
+            helperText={!formError.hasLastName ? 'Last name is required' : ''}
           />
-          <Autocomplete
-            freeSolo
-            options={cities.map((city) => city.city)}
-            getOptionLabel={(option: string) => option}
-            onChange={onChangeLocation}
-            renderInput={(params) => (
-              <TextField
-                {...params}
-                label="Location"
-                name="location"
-                fullWidth
-              />
-            )}
-          />
-        </DialogContent>
-        <DialogActions>
-          {/* <Button onClick={() => onClose(data)}>Cancel</Button> */}
-          <Button type="submit" variant="contained" color="primary">
-            Submit
-          </Button>
-        </DialogActions>
-      </form>
-    </Dialog>
+
+          <Box mt={2} display="flex" justifyContent="flex-end">
+            <Button type="submit" variant="contained" color="primary">
+              Submit
+            </Button>
+          </Box>
+        </form>
+      </Box>
+    </Modal>
   );
 };
 

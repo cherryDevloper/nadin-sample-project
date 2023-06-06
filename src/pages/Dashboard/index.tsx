@@ -11,11 +11,6 @@ const Dashboard = () => {
   const [data, setData] = useState<DataType>({
     firstName: '',
     lastName: '',
-    location: {
-      city: 'Tehran',
-      lat: '35.7000',
-      lng: '51.4167',
-    },
   });
 
   useEffect(() => {
@@ -36,11 +31,6 @@ const Dashboard = () => {
     setData({
       firstName: '',
       lastName: '',
-      location: {
-        city: 'Tehran',
-        lat: '35.7000',
-        lng: '51.4167',
-      },
     });
 
     localStorage.setItem('data', JSON.stringify(data));
@@ -61,16 +51,7 @@ const Dashboard = () => {
   const handleLastNameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setData({ ...data, lastName: e.target.value });
   };
-  const handleLocationChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setData({
-      ...data,
-      location: {
-        city: 'Tehran',
-        lat: '',
-        lng: '',
-      },
-    });
-  };
+
   return (
     <div>
       <Clock />
@@ -79,7 +60,6 @@ const Dashboard = () => {
         open={open}
         onClose={handleModalClose}
         onSubmit={handleSubmit}
-        onChangeLocation={handleLocationChange}
         onChangeFirstName={handleFirstNameChange}
         onChangeLastName={handleLastNameChange}
       />
