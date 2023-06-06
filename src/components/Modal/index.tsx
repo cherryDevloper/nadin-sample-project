@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import {
   Button,
   Dialog,
@@ -6,8 +6,10 @@ import {
   DialogContent,
   DialogActions,
   TextField,
+  Autocomplete,
 } from '@mui/material';
 import { NameFormProps } from './Modal.types';
+import { cities } from '../../data/cities';
 
 const CustomModal: React.FC<NameFormProps> = ({
   open,
@@ -15,30 +17,49 @@ const CustomModal: React.FC<NameFormProps> = ({
   onSubmit,
   onChangeFirstName,
   onChangeLastName,
-  name,
+  onChangeLocation,
+  data,
 }) => {
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    onSubmit(e);
+  };
   return (
     <Dialog open={open} onClose={onClose}>
-      <DialogTitle>Enter Your Name</DialogTitle>
-      <form onSubmit={(e) => onSubmit(e)}>
+      <DialogTitle>Enter Your information</DialogTitle>
+      <form onSubmit={handleSubmit}>
         <DialogContent>
           <TextField
             label="First Name"
-            value={name.firstName}
+            value={data.firstName}
             onChange={onChangeFirstName}
             fullWidth
             margin="normal"
           />
           <TextField
             label="Last Name"
-            value={name.lastName}
+            value={data.lastName}
             onChange={onChangeLastName}
             fullWidth
             margin="normal"
           />
+          <Autocomplete
+            freeSolo
+            options={cities.map((city) => city.city)}
+            getOptionLabel={(option: string) => option}
+            onChange={onChangeLocation}
+            renderInput={(params) => (
+              <TextField
+                {...params}
+                label="Location"
+                name="location"
+                fullWidth
+              />
+            )}
+          />
         </DialogContent>
         <DialogActions>
-          <Button onClick={() => onClose(name)}>Cancel</Button>
+          <Button onClick={() => onClose(data)}>Cancel</Button>
           <Button type="submit" variant="contained" color="primary">
             Submit
           </Button>

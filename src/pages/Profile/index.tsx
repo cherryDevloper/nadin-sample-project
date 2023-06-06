@@ -1,4 +1,3 @@
-// ts-nocheck
 import React, { useState } from 'react';
 import {
   Button,
@@ -10,29 +9,29 @@ import {
 } from '@mui/material';
 import { cities } from '../../data/cities';
 
-interface Profile {
-  firstName: string;
-  lastName: string;
-  location: {
-    city: string;
-    lat: string;
-    lng: string;
-  } | null;
-  theme: string;
-}
-
+import { ProfileTypes } from './Profile.type';
+import { AlertType } from '../../components/AlertComponent/Alert.type';
+import AlertComponent from '../../components/AlertComponent';
 const themes = ['Light', 'Dark'];
 const ProfileComponent: React.FC = () => {
   const storedName = localStorage.getItem('name');
   const storedProfile = storedName ? JSON.parse(storedName) : {};
-
-  const [profile, setProfile] = useState<Profile>({
+  const [profile, setProfile] = useState<ProfileTypes>({
     firstName: storedProfile.firstName || '',
     lastName: storedProfile.lastName || '',
-    location: null,
+    location: '' || null,
     theme: 'Light',
   });
 
+  const [alert, setAlert] = useState<{
+    showAlert: boolean;
+    alertType: AlertType;
+    alertMessage: string;
+  }>({
+    showAlert: false,
+    alertType: 'success',
+    alertMessage: '',
+  });
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = event.target;
     setProfile((prevProfile) => ({
@@ -61,6 +60,11 @@ const ProfileComponent: React.FC = () => {
 
   const handleSave = () => {
     localStorage.setItem('profile', JSON.stringify(profile));
+    setAlert({
+      showAlert: true,
+      alertMessage: 'changes has been saved successfuly!',
+      alertType: 'success',
+    });
   };
 
   return (
@@ -86,10 +90,9 @@ const ProfileComponent: React.FC = () => {
       <Grid item xs={12}>
         <Autocomplete
           freeSolo
-          options={cities}
-          getOptionLabel={(option: any) => option.city}
-          value={profile.location}
-          // ts-ignore
+          options={cities.map((city) => city.city)}
+          getOptionLabel={(option: string) => option}
+          defaultValue={profile.location?.city || ''}
           onChange={handleLocationChange}
           renderInput={(params) => (
             <TextField {...params} label="Location" name="location" fullWidth />
@@ -122,6 +125,15 @@ const ProfileComponent: React.FC = () => {
           Save
         </Button>
       </Grid>
+      {alert.showAlert && (
+        <AlertComponent
+          hideAfter={3000}
+          onHide={() => setAlert({ ...alert, showAlert: false })}
+          message={alert.alertMessage}
+          type={alert.alertType}
+          showAlert={alert.showAlert}
+        />
+      )}
     </Grid>
   );
 };

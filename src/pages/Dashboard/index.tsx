@@ -2,15 +2,20 @@ import React, { useState, useEffect } from 'react';
 import Clock from '../../components/Time';
 import CustomModal from '../../components/Modal';
 import { Typography } from '@mui/material';
-import { Name } from '../../components/Modal/Modal.types';
+import { DataType } from '../../components/Modal/Modal.types';
 
 const Dashboard = () => {
-  const [open, setOpen] = useState(!localStorage.getItem('name'));
+  const [open, setOpen] = useState(!localStorage.getItem('data'));
   const [greeting, setGreeting] = useState('');
-  const [parsedValue, setParsedValue] = useState<Name | null>();
-  const [name, setName] = useState<Name>({
+  const [parsedValue, setParsedValue] = useState<DataType | null>();
+  const [data, setData] = useState<DataType>({
     firstName: '',
     lastName: '',
+    location: {
+      city: 'Tehran',
+      lat: '35.7000',
+      lng: '51.4167',
+    },
   });
 
   useEffect(() => {
@@ -24,22 +29,25 @@ const Dashboard = () => {
 
     setGreeting(greeting);
     const savedName = JSON.parse(localStorage.getItem('name') ?? 'null');
-    setName(savedName ?? { firstName: '', lastName: '' });
+    setData(savedName ?? { firstName: '', lastName: '' });
   }, []);
 
   const handleSubmit = (event: React.FormEvent) => {
-    event.preventDefault();
-
-    setName({
+    setData({
       firstName: '',
       lastName: '',
+      location: {
+        city: 'Tehran',
+        lat: '35.7000',
+        lng: '51.4167',
+      },
     });
 
-    localStorage.setItem('name', JSON.stringify(name));
-    handleModalClose(name);
+    localStorage.setItem('data', JSON.stringify(data));
+    handleModalClose(data);
   };
 
-  const handleModalClose = (value: Name = { firstName: '', lastName: '' }) => {
+  const handleModalClose = (value: DataType) => {
     setOpen(false);
     if (value && value.firstName && value.lastName) {
       setParsedValue(value);
@@ -47,20 +55,31 @@ const Dashboard = () => {
   };
 
   const handleFirstNameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setName({ ...name, firstName: e.target.value });
+    setData({ ...data, firstName: e.target.value });
   };
 
   const handleLastNameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setName({ ...name, lastName: e.target.value });
+    setData({ ...data, lastName: e.target.value });
+  };
+  const handleLocationChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setData({
+      ...data,
+      location: {
+        city: 'Tehran',
+        lat: '',
+        lng: '',
+      },
+    });
   };
   return (
     <div>
       <Clock />
       <CustomModal
-        name={name}
+        data={data}
         open={open}
         onClose={handleModalClose}
         onSubmit={handleSubmit}
+        onChangeLocation={handleLocationChange}
         onChangeFirstName={handleFirstNameChange}
         onChangeLastName={handleLastNameChange}
       />
@@ -68,7 +87,7 @@ const Dashboard = () => {
         {greeting},{' '}
         {parsedValue
           ? `${parsedValue.firstName} ${parsedValue.lastName}`
-          : `${name.firstName} ${name.lastName}`}
+          : `${data.firstName} ${data.lastName}`}
       </Typography>
     </div>
   );
