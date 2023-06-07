@@ -5,7 +5,11 @@ import { Box } from '@mui/material';
 import { LayoutProps } from './Layout.types';
 import { useTheme } from '@mui/material/styles';
 const drawerWidth = 240;
-const Layout: React.FC<LayoutProps> = ({ children, toggleTheme }) => {
+const Layout: React.FC<LayoutProps> = ({
+  children,
+  toggleTheme,
+  handleButtonClick,
+}) => {
   const [mobileOpen, setMobileOpen] = React.useState(false);
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
@@ -23,6 +27,7 @@ const Layout: React.FC<LayoutProps> = ({ children, toggleTheme }) => {
           handleDrawerToggle={handleDrawerToggle}
           mobileOpen={mobileOpen}
           drawerWidth={drawerWidth}
+          handleButtonClick={handleButtonClick}
         />
         <Box
           component="main"

@@ -7,14 +7,17 @@ import ListItemButton from '@mui/material/ListItemButton';
 import ListItemText from '@mui/material/ListItemText';
 import Box from '@mui/material/Box';
 import { SidebarProps } from './Sidebar.types';
-import { Typography } from '@mui/material';
+import { Typography, Button } from '@mui/material';
+import { useTranslation } from 'react-i18next';
 
 export default function Sidebar({
   window,
   handleDrawerToggle,
   mobileOpen,
   drawerWidth,
+  handleButtonClick,
 }: SidebarProps) {
+  const { t } = useTranslation();
   const drawer = (
     <div>
       <List>
@@ -23,12 +26,16 @@ export default function Sidebar({
             <ListItem disablePadding>
               <ListItemButton>
                 <Typography variant="h6" noWrap component="div">
-                  <ListItemText primary={text} sx={{ color: 'primary.main' }} />
+                  <ListItemText
+                    primary={t(text)}
+                    sx={{ color: 'primary.main' }}
+                  />
                 </Typography>
               </ListItemButton>
             </ListItem>
           </NavLink>
         ))}
+        <Button onClick={handleButtonClick}>Change language</Button>
       </List>
     </div>
   );

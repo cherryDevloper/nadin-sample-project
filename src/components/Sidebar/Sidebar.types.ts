@@ -3,4 +3,5 @@ export interface SidebarProps {
   handleDrawerToggle: () => void;
   mobileOpen: boolean;
   drawerWidth: number;
+  handleButtonClick?: () => void;
 }
