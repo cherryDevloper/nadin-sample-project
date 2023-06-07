@@ -89,7 +89,7 @@ const Weather: React.FC = () => {
             width: '30%',
           }}
         >
-          {weatherData ? (
+          {weatherData && !loading ? (
             <Box>
               <Typography variant="body1" sx={{ color: 'primary.main' }}>
                 {t('temperatureOf')} {selectedCity.city}:{' '}

@@ -19,7 +19,7 @@ export default function Sidebar({
 }: SidebarProps) {
   const { t } = useTranslation();
   const drawer = (
-    <div>
+    <>
       <List>
         {['Dashboard', 'Profile', 'Weather', 'Todos'].map((text) => (
           <NavLink to={text.toLowerCase()} key={text}>
@@ -35,9 +35,11 @@ export default function Sidebar({
             </ListItem>
           </NavLink>
         ))}
-        <Button onClick={handleButtonClick}>{t('changeLanguage')}</Button>
+        <Button variant="outlined" onClick={handleButtonClick}>
+          {t('changeLanguage')}
+        </Button>
       </List>
-    </div>
+    </>
   );
 
   const container =
