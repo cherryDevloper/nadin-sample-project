@@ -3,6 +3,7 @@ import { Autocomplete, TextField, Typography } from '@mui/material';
 import { cities } from '../../data/cities';
 import { City } from './Weather.types';
 import { getWeather } from '../../api/services/weatherService';
+import Spin from '../../components/Spin';
 
 const Weather: React.FC = () => {
   const [selectedCity, setSelectedCity] = useState<City | null>(null);
@@ -70,7 +71,7 @@ const Weather: React.FC = () => {
               </Typography>
             </div>
           ) : (
-            <>loading...</>
+            <Spin />
           )}
         </div>
       )}
