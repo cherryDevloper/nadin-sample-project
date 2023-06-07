@@ -22,7 +22,7 @@ const AlertComponent: React.FC<AlertComponentProps> = ({
     }
   };
   useEffect(() => {
-    if (showAlert && hideAfter) {
+    if (showAlert && hideAfter && onHide) {
       const timer = setTimeout(() => {
         onHide();
       }, hideAfter);
