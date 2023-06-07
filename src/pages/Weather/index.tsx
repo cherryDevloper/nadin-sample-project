@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Autocomplete, TextField, Typography } from '@mui/material';
 import { cities } from '../../data/cities';
 import { City } from './Weather.types';
-import { getWeather } from '../../api/services/weatherService';
+import { getWeatherService } from '../../api/services/weatherService';
 import Spin from '../../components/Spin';
 
 const Weather: React.FC = () => {
@@ -10,7 +10,7 @@ const Weather: React.FC = () => {
   const [weatherData, setWeatherData] = useState<any>(null);
   const [searchTerm, setSearchTerm] = useState<string>('');
   const [loading, setLoading] = useState<boolean>(false);
-  const handleCityChange = (
+  const handleCityChange: any = (
     event: React.ChangeEvent<{}>,
     value: City | null,
   ) => {
@@ -33,15 +33,14 @@ const Weather: React.FC = () => {
     if (selectedCity) {
       const { lat, lng } = selectedCity;
       try {
-        const response = await getWeather(lat, lng);
-        setWeatherData(response.data);
+        const response = await getWeatherService(lat, lng);
+        setWeatherData(response);
       } catch (error) {
         console.error('Error fetching weather data:', error);
       }
     }
     setLoading(false);
   };
-
   return (
     <div>
       <Autocomplete
@@ -65,7 +64,10 @@ const Weather: React.FC = () => {
         <div>
           {weatherData && !loading ? (
             <div>
-              <Typography variant="body1">
+              <Typography
+                variant="body1"
+                sx={{ color: 'primary.main', mt: '1rem' }}
+              >
                 Temperature of {selectedCity.city}:{' '}
                 {weatherData.current_weather.temperature}°C
               </Typography>
