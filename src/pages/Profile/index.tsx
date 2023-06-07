@@ -1,23 +1,10 @@
 import React, { useState } from 'react';
-import {
-  Button,
-  FormControlLabel,
-  Switch,
-  TextField,
-  Autocomplete,
-  Grid,
-} from '@mui/material';
+import { Button, TextField, Autocomplete, Grid } from '@mui/material';
 import { cities } from '../../data/cities';
 import { ProfileTypes } from './Profile.type';
 import { AlertType } from '../../components/AlertComponent/Alert.type';
 import AlertComponent from '../../components/AlertComponent';
 const ProfileComponent: React.FC = () => {
-  //theme
-  const [themeMode, setThemeMode] = useState<'light' | 'dark'>('light');
-  const toggleTheme = () => {
-    setThemeMode(themeMode === 'light' ? 'dark' : 'light');
-    localStorage.setItem('theme', themeMode);
-  };
   //user data
   const storedData = localStorage.getItem('data');
   const userData = storedData ? JSON.parse(storedData) : {};
@@ -96,20 +83,7 @@ const ProfileComponent: React.FC = () => {
           )}
         />
       </Grid>
-      <Grid item xs={12}>
-        <p>Theme:</p>
-        <FormControlLabel
-          control={
-            <Switch
-              checked={themeMode === 'dark'}
-              onChange={toggleTheme}
-              color="primary"
-            />
-          }
-          label="Light"
-          labelPlacement="start"
-        />
-      </Grid>
+
       <Grid item xs={12}>
         <Button
           variant="contained"
