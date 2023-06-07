@@ -39,14 +39,12 @@ const Weather: React.FC = () => {
     );
   };
 
-  console.log('selectedCity', selectedCity);
   const fetchWeatherData = async () => {
     setLoading(true);
     if (selectedCity) {
       const { lat, lng } = selectedCity;
       try {
         const response = await getWeatherService(lat, lng);
-        console.log('response', response);
         setWeatherData(response);
       } catch (error) {
         setAlert({
@@ -58,9 +56,8 @@ const Weather: React.FC = () => {
     }
     setLoading(false);
   };
-  console.log('weatherData', weatherData);
   return (
-    <div>
+    <Box>
       <Autocomplete
         options={cities}
         getOptionLabel={(option) => option.city}
@@ -79,13 +76,20 @@ const Weather: React.FC = () => {
         onSelect={fetchWeatherData}
       />
       {selectedCity && (
-        <div>
+        <Box
+          sx={{
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            height: '10vh',
+            border: '1px solid red',
+            mt: '1rem',
+            width: '30%',
+          }}
+        >
           {weatherData ? (
             <Box>
-              <Typography
-                variant="body1"
-                sx={{ color: 'primary.main', mt: '1rem' }}
-              >
+              <Typography variant="body1" sx={{ color: 'primary.main' }}>
                 Temperature of {selectedCity.city}:{' '}
                 {weatherData.current_weather.temperature}°C
               </Typography>
@@ -93,7 +97,7 @@ const Weather: React.FC = () => {
           ) : (
             <Spin />
           )}
-        </div>
+        </Box>
       )}
       {alert.showAlert && (
         <AlertComponent
@@ -104,7 +108,7 @@ const Weather: React.FC = () => {
           showAlert={alert.showAlert}
         />
       )}
-    </div>
+    </Box>
   );
 };
 
