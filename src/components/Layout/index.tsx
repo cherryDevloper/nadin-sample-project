@@ -4,6 +4,7 @@ import Sidebar from '../Sidebar';
 import { Box } from '@mui/material';
 import { LayoutProps } from './Layout.types';
 import { useTheme } from '@mui/material/styles';
+
 const drawerWidth = 240;
 const Layout: React.FC<LayoutProps> = ({
   children,
@@ -15,6 +16,7 @@ const Layout: React.FC<LayoutProps> = ({
     setMobileOpen(!mobileOpen);
   };
   const theme = useTheme();
+
   return (
     <Box sx={{ backgroundColor: theme.palette.background.default }}>
       <Box sx={{ display: 'flex' }} color={'primary'}>

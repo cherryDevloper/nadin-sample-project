@@ -3,8 +3,9 @@ import Clock from '../../components/Time';
 import CustomModal from '../../components/Modal';
 import { Typography, Box } from '@mui/material';
 import { DataType } from '../../components/Modal/Modal.types';
-
+import { useTranslation } from 'react-i18next';
 const Dashboard = () => {
+  const { t } = useTranslation();
   const [open, setOpen] = useState(!localStorage.getItem('data'));
   const [greeting, setGreeting] = useState('');
   const [parsedValue, setParsedValue] = useState<DataType | null>();
@@ -17,10 +18,10 @@ const Dashboard = () => {
     const hours = new Date().getHours();
     const greeting =
       hours >= 5 && hours < 12
-        ? 'Good Morning'
+        ? t('goodMorning')
         : hours >= 12 && hours < 17
-        ? 'Good Afternoon'
-        : 'Good Evening';
+        ? t('goodAfternoon')
+        : t('goodEvening');
 
     setGreeting(greeting);
     const savedName = JSON.parse(localStorage.getItem('data') ?? 'null');
@@ -76,7 +77,7 @@ const Dashboard = () => {
         component="div"
         sx={{ mt: 1, color: 'primary.main' }}
       >
-        {greeting},{' '}
+        {t(greeting)},{' '}
         {parsedValue
           ? `${parsedValue.firstName} ${parsedValue.lastName}`
           : `${data.firstName} ${data.lastName}`}

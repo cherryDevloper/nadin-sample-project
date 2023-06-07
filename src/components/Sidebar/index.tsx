@@ -35,7 +35,7 @@ export default function Sidebar({
             </ListItem>
           </NavLink>
         ))}
-        <Button onClick={handleButtonClick}>Change language</Button>
+        <Button onClick={handleButtonClick}>{t('changeLanguage')}</Button>
       </List>
     </div>
   );

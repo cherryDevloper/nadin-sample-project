@@ -5,6 +5,7 @@ import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 import IconButton from '@mui/material/IconButton';
 import MenuIcon from '@mui/icons-material/Menu';
+import { useTranslation } from 'react-i18next';
 import { HeaderProps } from './Header.typs';
 import { Button } from '@mui/material';
 
@@ -13,6 +14,7 @@ const Header = ({
   drawerWidth,
   toggleTheme,
 }: HeaderProps) => {
+  const { t } = useTranslation();
   return (
     <Box sx={{ flexGrow: 1 }}>
       <AppBar
@@ -34,11 +36,11 @@ const Header = ({
               <MenuIcon />
             </IconButton>
             <Typography variant="h6" noWrap component="div">
-              Nadin Test Project
+              {t('nadinTestProject')}
             </Typography>
           </Box>
           <Button variant="outlined" onClick={toggleTheme} color="secondary">
-            Change Theme
+            {t('changeTheme')}
           </Button>
         </Toolbar>
       </AppBar>

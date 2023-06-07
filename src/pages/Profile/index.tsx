@@ -4,7 +4,9 @@ import { cities } from '../../data/cities';
 import { ProfileTypes } from './Profile.type';
 import { AlertType } from '../../components/AlertComponent/Alert.type';
 import AlertComponent from '../../components/AlertComponent';
+import { useTranslation } from 'react-i18next';
 const ProfileComponent: React.FC = () => {
+  const { t } = useTranslation();
   //user data
   const storedData = localStorage.getItem('data');
   const userData = storedData ? JSON.parse(storedData) : {};
@@ -55,7 +57,7 @@ const ProfileComponent: React.FC = () => {
     <Grid container spacing={2}>
       <Grid item xs={12} sm={6}>
         <TextField
-          label="First Name"
+          label={t('firstName')}
           name="firstName"
           value={profile.firstName}
           onChange={handleInputChange}
@@ -64,7 +66,7 @@ const ProfileComponent: React.FC = () => {
       </Grid>
       <Grid item xs={12} sm={6}>
         <TextField
-          label="Last Name"
+          label={t('lastName')}
           name="lastName"
           value={profile.lastName}
           onChange={handleInputChange}
@@ -79,14 +81,19 @@ const ProfileComponent: React.FC = () => {
           defaultValue={profile.location?.city || ''}
           onChange={handleLocationChange}
           renderInput={(params) => (
-            <TextField {...params} label="Location" name="location" fullWidth />
+            <TextField
+              {...params}
+              label={t('location')}
+              name="location"
+              fullWidth
+            />
           )}
         />
       </Grid>
 
       <Grid item xs={12}>
         <Button variant="contained" color="primary" onClick={handleSave}>
-          Save
+          {t('save')}
         </Button>
       </Grid>
       {alert.showAlert && (

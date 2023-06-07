@@ -2,8 +2,10 @@ import React, { useState } from 'react';
 import { Button, List, TextField, Grid, Typography } from '@mui/material';
 import { Todo } from './Todos.type';
 import TodoItem from './TodoItem';
+import { useTranslation } from 'react-i18next';
 
 function Todos() {
+  const { t } = useTranslation();
   const [todos, setTodos] = useState<Todo[]>([]);
   const [newTodo, setNewTodo] = useState('');
 
@@ -49,12 +51,12 @@ function Todos() {
     <Grid container spacing={2}>
       <Grid item xs={12}>
         <Typography variant="h3" color="primary">
-          Todo List
+          {t('todoList')}{' '}
         </Typography>
       </Grid>
       <Grid item xs={12} md={6}>
         <TextField
-          label="New Todo"
+          label={t('newTodo')}
           value={newTodo}
           onChange={handleInputChange}
           fullWidth
@@ -62,7 +64,7 @@ function Todos() {
       </Grid>
       <Grid item xs={12} md={2}>
         <Button variant="contained" onClick={handleAddTodo} fullWidth>
-          Add Todo
+          {t('addTodo')}
         </Button>
       </Grid>
       <Grid item xs={12}>

@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Autocomplete, TextField, Typography, Box } from '@mui/material';
+import { useTranslation } from 'react-i18next';
 import { cities } from '../../data/cities';
 import { City } from './Weather.types';
 import { getWeatherService } from '../../api/services/weatherService';
@@ -8,6 +9,7 @@ import { AlertType } from '../../components/AlertComponent/Alert.type';
 import AlertComponent from '../../components/AlertComponent';
 
 const Weather: React.FC = () => {
+  const { t } = useTranslation();
   const [selectedCity, setSelectedCity] = useState<City | null>(null);
   const [weatherData, setWeatherData] = useState<any>(null);
   const [searchTerm, setSearchTerm] = useState<string>('');
@@ -67,7 +69,7 @@ const Weather: React.FC = () => {
         renderInput={(params) => (
           <TextField
             {...params}
-            label="Select a city"
+            label={t('selectCity')}
             fullWidth
             onChange={handleSearchChange}
             value={searchTerm}
@@ -90,7 +92,7 @@ const Weather: React.FC = () => {
           {weatherData ? (
             <Box>
               <Typography variant="body1" sx={{ color: 'primary.main' }}>
-                Temperature of {selectedCity.city}:{' '}
+                {t('temperatureOf')} {selectedCity.city}:{' '}
                 {weatherData.current_weather.temperature}°C
               </Typography>
             </Box>

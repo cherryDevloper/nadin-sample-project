@@ -8,6 +8,7 @@ import { darkTheme, lightTheme } from './theme';
 import Spin from './components/Spin';
 
 function App() {
+  //theme
   const [themeMode, setThemeMode] = useState<'light' | 'dark'>('light');
   const theme = themeMode === 'light' ? lightTheme : darkTheme;
 
@@ -22,6 +23,8 @@ function App() {
   const handleButtonClick = () => {
     const currentLanguage = i18n.language;
     const newLanguage = currentLanguage === 'en' ? 'fa' : 'en';
+    // Set the HTML dir attribute based on the new language
+    document.documentElement.dir = newLanguage === 'fa' ? 'rtl' : 'ltr';
     changeLanguage(newLanguage);
   };
   return (
