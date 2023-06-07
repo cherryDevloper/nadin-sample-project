@@ -60,7 +60,7 @@ function Todos() {
           fullWidth
         />
       </Grid>
-      <Grid item xs={12} md={6}>
+      <Grid item xs={12} md={2}>
         <Button variant="contained" onClick={handleAddTodo} fullWidth>
           Add Todo
         </Button>

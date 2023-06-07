@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import Clock from '../../components/Time';
 import CustomModal from '../../components/Modal';
-import { Typography } from '@mui/material';
+import { Typography, Box } from '@mui/material';
 import { DataType } from '../../components/Modal/Modal.types';
 
 const Dashboard = () => {
@@ -53,7 +53,15 @@ const Dashboard = () => {
   };
 
   return (
-    <div>
+    <Box
+      sx={{
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
+        justifyContent: 'center',
+        height: '30vh',
+      }}
+    >
       <Clock />
       <CustomModal
         data={data}
@@ -63,13 +71,17 @@ const Dashboard = () => {
         onChangeFirstName={handleFirstNameChange}
         onChangeLastName={handleLastNameChange}
       />
-      <Typography variant="h6" component="div" sx={{ mt: 1 }} color={'primary'}>
+      <Typography
+        variant="h6"
+        component="div"
+        sx={{ mt: 1, color: 'primary.main' }}
+      >
         {greeting},{' '}
         {parsedValue
           ? `${parsedValue.firstName} ${parsedValue.lastName}`
           : `${data.firstName} ${data.lastName}`}
       </Typography>
-    </div>
+    </Box>
   );
 };
 

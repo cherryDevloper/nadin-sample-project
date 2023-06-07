@@ -1,8 +1,6 @@
 import React, { useState } from 'react';
 import {
-  Button,
   IconButton,
-  List,
   ListItem,
   ListItemSecondaryAction,
   ListItemText,
@@ -37,34 +35,32 @@ const TodoItem: React.FC<TodoItemProps> = ({
         border: '1px solid #ccc',
         borderRadius: '4px',
         marginBottom: '10px',
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'stretch',
       }}
     >
       {todo.isEditing ? (
-        <ListItemText sx={{ color: 'primary.main' }}>
-          <TextField value={editedText} onChange={handleTextChange} fullWidth />
-        </ListItemText>
+        <TextField
+          value={editedText}
+          onChange={handleTextChange}
+          fullWidth
+          sx={{ color: 'primary.main' }}
+        />
       ) : (
         <ListItemText primary={todo.text} sx={{ color: 'primary.main' }} />
       )}
       <ListItemSecondaryAction>
         {todo.isEditing ? (
-          <IconButton edge="end" aria-label="done" onClick={handleDoneClick}>
+          <IconButton aria-label="done" onClick={handleDoneClick}>
             <DoneIcon />
           </IconButton>
         ) : (
-          <IconButton
-            edge="end"
-            aria-label="edit"
-            onClick={() => onToggleEdit(todo.id)}
-          >
+          <IconButton aria-label="edit" onClick={() => onToggleEdit(todo.id)}>
             <EditIcon />
           </IconButton>
         )}
-        <IconButton
-          edge="end"
-          aria-label="delete"
-          onClick={() => onDelete(todo.id)}
-        >
+        <IconButton aria-label="delete" onClick={() => onDelete(todo.id)}>
           <DeleteIcon />
         </IconButton>
       </ListItemSecondaryAction>
