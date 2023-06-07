@@ -27,6 +27,7 @@ const Clock: React.FC = () => {
       component="div"
       sx={{ fontFamily: 'Monospace', fontWeight: 'bold' }}
       color={'primary'}
+      data-testid="clock"
     >
       {formatTime(currentTime)}
     </Typography>
