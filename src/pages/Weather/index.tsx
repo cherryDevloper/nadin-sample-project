@@ -1,15 +1,26 @@
 import React, { useState } from 'react';
-import { Autocomplete, TextField, Typography } from '@mui/material';
+import { Autocomplete, TextField, Typography, Box } from '@mui/material';
 import { cities } from '../../data/cities';
 import { City } from './Weather.types';
 import { getWeatherService } from '../../api/services/weatherService';
 import Spin from '../../components/Spin';
+import { AlertType } from '../../components/AlertComponent/Alert.type';
+import AlertComponent from '../../components/AlertComponent';
 
 const Weather: React.FC = () => {
   const [selectedCity, setSelectedCity] = useState<City | null>(null);
   const [weatherData, setWeatherData] = useState<any>(null);
   const [searchTerm, setSearchTerm] = useState<string>('');
   const [loading, setLoading] = useState<boolean>(false);
+  const [alert, setAlert] = useState<{
+    showAlert: boolean;
+    alertType: AlertType;
+    alertMessage: string;
+  }>({
+    showAlert: false,
+    alertType: 'success',
+    alertMessage: '',
+  });
   const handleCityChange: any = (
     event: React.ChangeEvent<{}>,
     value: City | null,
@@ -28,19 +39,26 @@ const Weather: React.FC = () => {
     );
   };
 
+  console.log('selectedCity', selectedCity);
   const fetchWeatherData = async () => {
     setLoading(true);
     if (selectedCity) {
       const { lat, lng } = selectedCity;
       try {
         const response = await getWeatherService(lat, lng);
+        console.log('response', response);
         setWeatherData(response);
       } catch (error) {
-        console.error('Error fetching weather data:', error);
+        setAlert({
+          showAlert: true,
+          alertMessage: 'Error fetching weather data',
+          alertType: 'error',
+        });
       }
     }
     setLoading(false);
   };
+  console.log('weatherData', weatherData);
   return (
     <div>
       <Autocomplete
@@ -62,8 +80,8 @@ const Weather: React.FC = () => {
       />
       {selectedCity && (
         <div>
-          {weatherData && !loading ? (
-            <div>
+          {weatherData ? (
+            <Box>
               <Typography
                 variant="body1"
                 sx={{ color: 'primary.main', mt: '1rem' }}
@@ -71,11 +89,20 @@ const Weather: React.FC = () => {
                 Temperature of {selectedCity.city}:{' '}
                 {weatherData.current_weather.temperature}°C
               </Typography>
-            </div>
+            </Box>
           ) : (
             <Spin />
           )}
         </div>
+      )}
+      {alert.showAlert && (
+        <AlertComponent
+          hideAfter={3000}
+          onHide={() => setAlert({ ...alert, showAlert: false })}
+          message={alert.alertMessage}
+          type={alert.alertType}
+          showAlert={alert.showAlert}
+        />
       )}
     </div>
   );

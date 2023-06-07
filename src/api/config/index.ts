@@ -1,4 +1,4 @@
-const API_BASE_URL = 'https://api.openmeteo.com/v1/';
+const API_BASE_URL = 'https://api.open-meteo.com/v1/';
 const API_HEADERS = {
   'Content-Type': 'application/json',
 };
