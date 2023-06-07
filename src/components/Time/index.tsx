@@ -26,6 +26,7 @@ const Clock: React.FC = () => {
       variant="h3"
       component="div"
       sx={{ fontFamily: 'Monospace', fontWeight: 'bold' }}
+      color={'primary'}
     >
       {formatTime(currentTime)}
     </Typography>

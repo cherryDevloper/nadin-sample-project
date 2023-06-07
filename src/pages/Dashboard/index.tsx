@@ -63,7 +63,7 @@ const Dashboard = () => {
         onChangeFirstName={handleFirstNameChange}
         onChangeLastName={handleLastNameChange}
       />
-      <Typography variant="h6" component="div" sx={{ mt: 1 }}>
+      <Typography variant="h6" component="div" sx={{ mt: 1 }} color={'primary'}>
         {greeting},{' '}
         {parsedValue
           ? `${parsedValue.firstName} ${parsedValue.lastName}`

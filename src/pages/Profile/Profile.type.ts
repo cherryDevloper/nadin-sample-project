@@ -6,5 +6,4 @@ export interface ProfileTypes {
     lat: string;
     lng: string;
   } | null;
-  theme: string;
 }

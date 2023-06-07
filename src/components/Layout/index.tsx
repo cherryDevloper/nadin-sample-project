@@ -5,7 +5,7 @@ import { Box } from '@mui/material';
 import { LayoutProps } from './Layout.types';
 import { useTheme } from '@mui/material/styles';
 const drawerWidth = 240;
-const Layout: React.FC<LayoutProps> = ({ children }) => {
+const Layout: React.FC<LayoutProps> = ({ children, toggleTheme }) => {
   const [mobileOpen, setMobileOpen] = React.useState(false);
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
@@ -13,8 +13,9 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
   const theme = useTheme();
   return (
     <Box sx={{ backgroundColor: theme.palette.background.default }}>
-      <Box sx={{ display: 'flex' }}>
+      <Box sx={{ display: 'flex' }} color={'primary'}>
         <Header
+          toggleTheme={toggleTheme}
           handleDrawerToggle={handleDrawerToggle}
           drawerWidth={drawerWidth}
         />
@@ -29,6 +30,7 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
             flexGrow: 1,
             p: '5rem 1rem',
             width: { sm: `calc(100% - ${drawerWidth}px)` },
+            height: '80vh',
           }}
         >
           {children}

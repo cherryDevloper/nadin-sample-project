@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import {
   Button,
   FormControlLabel,
-  Checkbox,
+  Switch,
   TextField,
   Autocomplete,
   Grid,
@@ -11,18 +11,22 @@ import { cities } from '../../data/cities';
 import { ProfileTypes } from './Profile.type';
 import { AlertType } from '../../components/AlertComponent/Alert.type';
 import AlertComponent from '../../components/AlertComponent';
-//theme
-const themes = ['Light', 'Dark'];
-//
 const ProfileComponent: React.FC = () => {
+  //theme
+  const [themeMode, setThemeMode] = useState<'light' | 'dark'>('light');
+  const toggleTheme = () => {
+    setThemeMode(themeMode === 'light' ? 'dark' : 'light');
+    localStorage.setItem('theme', themeMode);
+  };
+  //user data
   const storedData = localStorage.getItem('data');
   const userData = storedData ? JSON.parse(storedData) : {};
   const [profile, setProfile] = useState<ProfileTypes>({
     firstName: userData.firstName || '',
     lastName: userData.lastName || '',
     location: userData.location || { city: 'Tehran', lat: '', lng: '' },
-    theme: 'Light',
   });
+  //alert
   const [alert, setAlert] = useState<{
     showAlert: boolean;
     alertType: AlertType;
@@ -32,6 +36,7 @@ const ProfileComponent: React.FC = () => {
     alertType: 'success',
     alertMessage: '',
   });
+
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = event.target;
     setProfile((prevProfile) => ({
@@ -47,14 +52,6 @@ const ProfileComponent: React.FC = () => {
     setProfile((prevProfile) => ({
       ...prevProfile,
       location: { city: value, lat: '', lng: '' },
-    }));
-  };
-
-  const handleThemeChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const { value } = event.target;
-    setProfile((prevProfile) => ({
-      ...prevProfile,
-      theme: value,
     }));
   };
 
@@ -101,19 +98,17 @@ const ProfileComponent: React.FC = () => {
       </Grid>
       <Grid item xs={12}>
         <p>Theme:</p>
-        {themes.map((theme) => (
-          <FormControlLabel
-            key={theme}
-            control={
-              <Checkbox
-                checked={profile.theme === theme}
-                onChange={handleThemeChange}
-                value={theme}
-              />
-            }
-            label={theme}
-          />
-        ))}
+        <FormControlLabel
+          control={
+            <Switch
+              checked={themeMode === 'dark'}
+              onChange={toggleTheme}
+              color="primary"
+            />
+          }
+          label="Light"
+          labelPlacement="start"
+        />
       </Grid>
       <Grid item xs={12}>
         <Button

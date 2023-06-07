@@ -7,6 +7,7 @@ import ListItemButton from '@mui/material/ListItemButton';
 import ListItemText from '@mui/material/ListItemText';
 import Box from '@mui/material/Box';
 import { SidebarProps } from './Sidebar.types';
+import { Typography } from '@mui/material';
 
 export default function Sidebar({
   window,
@@ -21,7 +22,9 @@ export default function Sidebar({
           <NavLink to={text.toLowerCase()} key={text}>
             <ListItem disablePadding>
               <ListItemButton>
-                <ListItemText primary={text} />
+                <Typography variant="h6" noWrap component="div">
+                  <ListItemText primary={text} sx={{ color: 'primary.main' }} />
+                </Typography>
               </ListItemButton>
             </ListItem>
           </NavLink>

@@ -40,11 +40,11 @@ const TodoItem: React.FC<TodoItemProps> = ({
       }}
     >
       {todo.isEditing ? (
-        <ListItemText>
+        <ListItemText sx={{ color: 'primary.main' }}>
           <TextField value={editedText} onChange={handleTextChange} fullWidth />
         </ListItemText>
       ) : (
-        <ListItemText primary={todo.text} />
+        <ListItemText primary={todo.text} sx={{ color: 'primary.main' }} />
       )}
       <ListItemSecondaryAction>
         {todo.isEditing ? (
