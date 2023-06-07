@@ -20,4 +20,5 @@ export const enTranslation = {
   goodAfternoon: 'Good Afternoon',
   goodEvening: 'Good Evening',
   goodMorning: 'Good Morning',
+  successfulSave: 'changes has been saved successfuly!',
 };

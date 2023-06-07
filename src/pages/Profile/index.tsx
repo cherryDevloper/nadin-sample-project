@@ -48,7 +48,7 @@ const ProfileComponent: React.FC = () => {
     localStorage.setItem('data', JSON.stringify(profile));
     setAlert({
       showAlert: true,
-      alertMessage: 'changes has been saved successfuly!',
+      alertMessage: t('successfulSave'),
       alertType: 'success',
     });
   };

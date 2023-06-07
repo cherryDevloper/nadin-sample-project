@@ -20,4 +20,5 @@ export const faTranslation = {
   goodAfternoon: 'ظهر بخیر',
   goodEvening: 'عصر بخیر',
   goodMorning: 'صبح بخیر',
+  successfulSave: 'تغییرات با موفقیت ذخیره شد',
 };
