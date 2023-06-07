@@ -55,7 +55,7 @@ const ProfileComponent: React.FC = () => {
 
   return (
     <Grid container spacing={2}>
-      <Grid item xs={12} sm={6}>
+      <Grid item xs={12} sm={12}>
         <TextField
           label={t('firstName')}
           name="firstName"
@@ -64,7 +64,7 @@ const ProfileComponent: React.FC = () => {
           fullWidth
         />
       </Grid>
-      <Grid item xs={12} sm={6}>
+      <Grid item xs={12} sm={12}>
         <TextField
           label={t('lastName')}
           name="lastName"
