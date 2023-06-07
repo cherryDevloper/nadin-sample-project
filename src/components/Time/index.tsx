@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Typography } from '@mui/material';
+import { Typography, CircularProgress } from '@mui/material';
 
 const Clock: React.FC = () => {
   const [currentTime, setCurrentTime] = useState(new Date());
@@ -22,15 +22,38 @@ const Clock: React.FC = () => {
   };
 
   return (
-    <Typography
-      variant="h3"
-      component="div"
-      sx={{ fontFamily: 'Monospace', fontWeight: 'bold' }}
-      color={'primary'}
+    <div
+      style={{
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        height: '100%',
+        width: '100%',
+        position: 'relative',
+      }}
       data-testid="clock"
     >
-      {formatTime(currentTime)}
-    </Typography>
+      <CircularProgress
+        variant="determinate"
+        value={(currentTime.getSeconds() / 60) * 100}
+        size={200}
+        thickness={2}
+        style={{ position: 'absolute' }}
+      />
+      <Typography
+        variant="h4"
+        component="div"
+        sx={{
+          fontFamily: 'Monospace',
+          fontWeight: 'bold',
+          position: 'relative',
+          zIndex: 1,
+        }}
+        color={'primary'}
+      >
+        {formatTime(currentTime)}
+      </Typography>
+    </div>
   );
 };
 
