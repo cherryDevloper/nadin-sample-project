@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Autocomplete, TextField, Typography, Box } from '@mui/material';
 import { useTranslation } from 'react-i18next';
 import { cities } from '../../data/cities';
@@ -10,6 +10,8 @@ import AlertComponent from '../../components/AlertComponent';
 
 const Weather: React.FC = () => {
   const { t } = useTranslation();
+
+  //
   const [selectedCity, setSelectedCity] = useState<City | null>(null);
   const [weatherData, setWeatherData] = useState<any>(null);
   const [searchTerm, setSearchTerm] = useState<string>('');
@@ -58,6 +60,20 @@ const Weather: React.FC = () => {
     }
     setLoading(false);
   };
+
+  const storedData = localStorage.getItem('data');
+  const userData = storedData ? JSON.parse(storedData) : {};
+  useEffect(() => {
+    const userLocation = cities?.find(
+      (city) => city?.city === userData?.location?.city,
+    );
+    if (userLocation) {
+      setSelectedCity(userLocation);
+    }
+  }, [cities]);
+  useEffect(() => {
+    fetchWeatherData();
+  }, [selectedCity]);
   return (
     <Box>
       <Autocomplete
@@ -93,7 +109,10 @@ const Weather: React.FC = () => {
             <Box>
               <Typography variant="body1" sx={{ color: 'primary.main' }}>
                 {t('temperatureOf')} {selectedCity.city}:{' '}
-                {weatherData.current_weather.temperature}°C
+                {weatherData.current_weather &&
+                weatherData.current_weather.temperature
+                  ? `${weatherData.current_weather.temperature}°C`
+                  : ''}
               </Typography>
             </Box>
           ) : (
