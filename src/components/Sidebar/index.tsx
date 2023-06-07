@@ -48,7 +48,10 @@ export default function Sidebar({
   return (
     <Box
       component="nav"
-      sx={{ width: { sm: drawerWidth }, flexShrink: { sm: 0 } }}
+      sx={{
+        width: { sm: drawerWidth },
+        flexShrink: { sm: 0 },
+      }}
       aria-label="mailbox folders"
     >
       <Drawer
@@ -64,6 +67,7 @@ export default function Sidebar({
           '& .MuiDrawer-paper': {
             boxSizing: 'border-box',
             width: drawerWidth,
+            backgroundColor: 'secondary.main',
           },
         }}
       >
@@ -76,6 +80,7 @@ export default function Sidebar({
           '& .MuiDrawer-paper': {
             boxSizing: 'border-box',
             width: drawerWidth,
+            backgroundColor: 'secondary.main',
           },
         }}
         open

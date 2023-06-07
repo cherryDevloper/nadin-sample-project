@@ -7,7 +7,7 @@ export const lightTheme = createTheme({
       main: '#3f51b5',
     },
     secondary: {
-      main: '#f50057',
+      main: '#81b5d3',
     },
     error: {
       main: '#f44336',
