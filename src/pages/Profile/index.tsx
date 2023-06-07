@@ -85,12 +85,7 @@ const ProfileComponent: React.FC = () => {
       </Grid>
 
       <Grid item xs={12}>
-        <Button
-          variant="contained"
-          color="primary"
-          onClick={handleSave}
-          fullWidth
-        >
+        <Button variant="contained" color="primary" onClick={handleSave}>
           Save
         </Button>
       </Grid>
